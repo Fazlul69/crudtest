@@ -20,8 +20,8 @@
 									@if(Session::has('success'))
 									<div class="alert alert-success">{{Session::get('success')}}</div>
 									@endif
-									<form action="{{route('doctor.store')}}" method="post">
-										@csrf
+									<form action="{{route('store')}}" method="post">
+										{{csrf_field()}}
 										<div class="form-group">
 											<label for="">Name</label>
 											<input type="text" name="name" class="form-control" placeholder="Enter Doctor Name">

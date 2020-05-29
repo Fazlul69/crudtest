@@ -14,8 +14,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors=Doctor::all();
-        return view('doctor.index')->with('doctors',$doctors);
+       /* $doctors=Doctor::all();->with('doctors',$doctors)*/
+        return view('doctor.index');
     }
 
     /**
@@ -36,20 +36,33 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        Doctor::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'image' => 'required'
         ]);
-        if ($files = $request->file('image')) {
-           $destinationPath = 'public/image/'; // upload path
-           $profileImage = date('YmdHis') . "." . $files->getClientOriginalExtension();
-           $files->move($destinationPath, $profileImage);
-           $insert['image'] = "$profileImage";
+
+        $doctor = new Doctor();
+        
+        $doctor->name = $request->name;
+        $doctor->email = $request->email;
+        $doctor->image = $request->image;
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/doctor/',$filename);
+            $doctor->image = $filename;
+        }else{
+            return $request;
+            $doctor->image = '';
         }
 
+        $doctor->save();
+
         Session::flash('success','Doctor created successfully');
-        return redirect()->back();
+        return redirect(route('doctor.index'));
     }
 
     /**

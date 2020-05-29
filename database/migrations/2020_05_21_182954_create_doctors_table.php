@@ -17,7 +17,7 @@ class CreateDoctorsTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("email");
-            $table->text('image'); 
+            $table->mediumText('image')->nullable(); 
             $table->timestamps();
         });
     }
