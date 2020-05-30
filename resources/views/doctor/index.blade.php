@@ -32,7 +32,22 @@
 							      <td>{{$doctor->name}}</td>
 							      <td>{{$doctor->email}}</td>
 							      <td>{{$doctor->image}}</td>
-							      <td><a class="btn btn-primary" href="{{route('edit',$doctor->id)}}">Edit</a> || <a class="btn btn-danger" href="">Delete</a></td>
+							      <td><a class="btn btn-primary" href="{{route('edit',$doctor->id)}}">Edit</a> ||
+
+							      	<form method="POST" id="delete-form-{{$doctor->id}}" 
+							      		action="{{route('delete',$doctor->id)}}" style="display: none;">
+							      		@csrf
+							      		{{method_field('delete')}}
+							      		
+							      	</form>
+							       <button onclick="if(confirm('Are you sure, You wenr to delete this?')){
+							       	event.preventDefault();
+							       	document.getElementById('delete-form-{{$doctor->id}}').submit();
+							       }else{
+							       	event.preventDefault();
+							       }
+							       " 
+							       class="btn btn-danger" href="">Delete</button></td>
 							    </tr>
 							    @endforeach
 							  </tbody>
