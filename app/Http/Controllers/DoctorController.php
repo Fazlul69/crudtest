@@ -14,8 +14,8 @@ class DoctorController extends Controller
      */
     public function index()
     {
-       /* $doctors=Doctor::all();->with('doctors',$doctors)*/
-        return view('doctor.index');
+        $doctors=Doctor::all();
+        return view('doctor.index')->with('doctors',$doctors);
     }
 
     /**
@@ -36,7 +36,7 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
+         $this->validate($request,[
             'name' => 'required',
             'email' => 'required',
             'image' => 'required'
@@ -46,7 +46,7 @@ class DoctorController extends Controller
         
         $doctor->name = $request->name;
         $doctor->email = $request->email;
-        $doctor->image = $request->image;
+//        $doctor->image = $request->image;
 
         if($request->hasFile('image')){
             $file = $request->file('image');
@@ -55,7 +55,7 @@ class DoctorController extends Controller
             $file->move('uploads/doctor/',$filename);
             $doctor->image = $filename;
         }else{
-            return $request;
+            //return $request;
             $doctor->image = '';
         }
 
@@ -84,7 +84,8 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        //
+        $doctor = Doctor::find($doctor);
+        return view('doctor.edit',compact('doctor'));
     }
 
     /**

@@ -8,7 +8,7 @@
 	<div class="doctorInfo">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-2">
+				<div class="col-md-8 col-md-offset-2">
 					<div class="card">
 						<div class="card-header d-flex justify-content-between align-items-center">
 							<h5>Doctors Information</h5>
@@ -32,7 +32,7 @@
 							      <td>{{$doctor->name}}</td>
 							      <td>{{$doctor->email}}</td>
 							      <td>{{$doctor->image}}</td>
-							      <td>action</td>
+							      <td><a class="btn btn-primary" href="{{route('edit',$doctor->id)}}">Edit</a> || <a class="btn btn-danger" href="">Delete</a></td>
 							    </tr>
 							    @endforeach
 							  </tbody>

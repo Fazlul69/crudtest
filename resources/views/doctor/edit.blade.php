@@ -24,15 +24,15 @@
 										{{csrf_field()}}
 										<div class="form-group">
 											<label for="">Name</label>
-											<input type="text" name="name" class="form-control" placeholder="Enter Doctor Name">
+											<input type="text" name="name" value="{{$doctor->name}}" class="form-control" placeholder="Enter Doctor Name">
 										</div>
 										<div class="form-group">
 											<label for="">Email</label>
-											<input type="text" name="email" class="form-control"placeholder="Enter Doctor Email">
+											<input type="text" name="email" value="{{$doctor->email}}" class="form-control"placeholder="Enter Doctor Email">
 										</div>
 										<div class="form-group">
 											<label for="">Upload Profile Picture</label>
-											<input type="file" name="image" id="fileToUpload">
+											<input type="file" name="image" value="{{$doctor->image}}" id="fileToUpload">
 										</div>
 										<div class="form-group">
 											<button class="btn btn-success" type="submit">Submit</button>
