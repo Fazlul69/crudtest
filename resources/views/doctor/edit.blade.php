@@ -20,7 +20,7 @@
 									@if(Session::has('success'))
 									<div class="alert alert-success">{{Session::get('success')}}</div>
 									@endif
-									<form action="{{route('store')}}" method="post" enctype="multipart/form-data">
+									<form action="{{route('update',$doctor->id)}}" method="post" enctype="multipart/form-data">
 										{{csrf_field()}}
 										<div class="form-group">
 											<label for="">Name</label>

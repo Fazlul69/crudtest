@@ -25,3 +25,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('doctor/create','DoctorController@create')->name('doctor.create');
 Route::post('doctor/create','DoctorController@store')->name('store');
 Route::get('edit/{id}','DoctorController@edit')->name('edit');
+Route::post('update/{id}','DoctorController@update')->name('update');

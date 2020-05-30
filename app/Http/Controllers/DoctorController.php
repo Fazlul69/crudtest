@@ -82,9 +82,9 @@ class DoctorController extends Controller
      * @param  \App\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Doctor $doctor)
+    public function edit($id)
     {
-        $doctor = Doctor::find($doctor);
+        $doctor = Doctor::find($id);
         return view('doctor.edit',compact('doctor'));
     }
 
@@ -95,9 +95,35 @@ class DoctorController extends Controller
      * @param  \App\Doctor  $doctor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Doctor $doctor)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name' => 'required',
+            'email' => 'required',
+            'image' => 'required'
+        ]);
+
+        $doctor = Doctor::find($id);
+        
+        $doctor->name = $request->name;
+        $doctor->email = $request->email;
+//        $doctor->image = $request->image;
+
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/doctor/',$filename);
+            $doctor->image = $filename;
+        }else{
+            //return $request;
+            $doctor->image = '';
+        }
+
+        $doctor->save();
+
+        Session::flash('success','Doctor created successfully');
+        return redirect(route('doctor.index'));
     }
 
     /**
